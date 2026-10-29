@@ -16,6 +16,7 @@ Then visit `http://localhost:4173`.
 ## Prototype scope
 
 - Responsive hospitality marketplace homepage
+- Separate Explore, Property Details, Kumbh 2027, Partner, and Support pages
 - Search form with date validation and query state
 - Category/location filtering and sorting
 - 10 fictional demo properties with transparent demo labels
