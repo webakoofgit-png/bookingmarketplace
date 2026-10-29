@@ -101,9 +101,6 @@
     .price small { color: var(--muted); font-size: 10px; display: block; }
     .price strong { color: var(--navy); font-size: 18px; }
     .card-btn { color: var(--saffron); background: transparent; font-size: 12px; font-weight: 700; }
-    .carousel-actions { display: flex; gap: 8px; }
-    .carousel-btn { width: 38px; height: 38px; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--navy); font-size: 18px; transition: .2s; }
-    .carousel-btn:hover { color: #fff; background: var(--saffron); border-color: var(--saffron); transform: translateY(-2px); }
     .location-carousel { overflow: hidden; }
     .location-grid { display: flex; gap: 16px; transition: transform .55s cubic-bezier(.22,.61,.36,1); will-change: transform; }
     .location-card { flex: 0 0 calc((100% - 32px) / 3); height: 315px; border-radius: 15px; overflow: hidden; position: relative; cursor: pointer; background: var(--navy); }
@@ -268,7 +265,7 @@
 
     <section class="property-section" id="featured"><div class="shell"><div class="section-head"><div><div class="eyebrow">A considered beginning</div><h2>Handpicked for your journey</h2><p>A small selection of illustrative stays to help you picture what MahakumbhStays can become.</p></div><a class="text-link" href="#results" id="featuredLink">Explore all demo stays</a></div><div class="property-grid" id="featuredGrid"></div></div></section>
 
-    <section id="destinations"><div class="shell"><div class="section-head"><div><div class="eyebrow">The places around the pilgrimage</div><h2>Explore at your own pace</h2><p>Choose a base close to the energy, or a little farther out where the mornings are quieter.</p></div><div class="carousel-actions"><button class="carousel-btn" id="locationPrev" aria-label="Previous destinations">←</button><button class="carousel-btn" id="locationNext" aria-label="Next destinations">→</button></div></div><div class="location-carousel"><div class="location-grid" id="locationGrid"></div></div></div></section>
+    <section id="destinations"><div class="shell"><div class="section-head"><div><div class="eyebrow">The places around the pilgrimage</div><h2>Explore at your own pace</h2><p>Choose a base close to the energy, or a little farther out where the mornings are quieter.</p></div></div><div class="location-carousel"><div class="location-grid" id="locationGrid"></div></div></div></section>
 
     <section class="why"><div class="shell"><div class="section-head"><div><div class="eyebrow">The MahakumbhStays promise</div><h2>Made with more thought</h2><p>The details that make a long day feel a little lighter.</p></div></div><div class="why-grid"><div class="why-card"><div class="why-icon">✦</div><h3>Every budget belongs</h3><p>Good rest should feel possible at every price point.</p></div><div class="why-card"><div class="why-icon">⌁</div><h3>Clarity at every step</h3><p>See what you are choosing, what it costs and what to expect.</p></div><div class="why-card"><div class="why-icon">◎</div><h3>Local, not generic</h3><p>Destination context that makes planning feel more human.</p></div><div class="why-card"><div class="why-icon">♧</div><h3>For every kind of group</h3><p>Flexible options for families, elders, friends and organised groups.</p></div><div class="why-card"><div class="why-icon">↗</div><h3>Built to be useful</h3><p>A simple experience that gets you from search to stay.</p></div></div></div></section>
 
@@ -324,12 +321,9 @@
     const locationTrack = $('#locationGrid'); let locationIndex = 0;
     const visibleLocations = () => window.innerWidth <= 700 ? 1 : window.innerWidth <= 980 ? 2 : 3;
     function moveLocationCarousel(direction=0) { const cards = $$('.location-card'); const maxIndex = Math.max(0, cards.length - visibleLocations()); locationIndex = (locationIndex + direction + maxIndex + 1) % (maxIndex + 1); const step = (cards[0]?.getBoundingClientRect().width || 0) + 16; locationTrack.style.transform = `translateX(-${locationIndex * step}px)`; }
-    $('#locationPrev').onclick = () => { moveLocationCarousel(-1); restartLocationAutoPlay(); };
-    $('#locationNext').onclick = () => { moveLocationCarousel(1); restartLocationAutoPlay(); };
     let locationTimer = setInterval(() => moveLocationCarousel(1), 5000);
-    function restartLocationAutoPlay() { clearInterval(locationTimer); locationTimer = setInterval(() => moveLocationCarousel(1), 5000); }
     $('.location-carousel').onmouseenter = () => clearInterval(locationTimer);
-    $('.location-carousel').onmouseleave = restartLocationAutoPlay;
+    $('.location-carousel').onmouseleave = () => { clearInterval(locationTimer); locationTimer = setInterval(() => moveLocationCarousel(1), 5000); };
     window.addEventListener('resize', () => moveLocationCarousel(0));
     function openModal(html) { $('#modal').innerHTML = `<button class="modal-close" id="modalClose" aria-label="Close">×</button>${html}`; $('#modalBackdrop').classList.add('show'); document.body.classList.add('locked'); $('#modalClose').onclick=closeModal; }
     function closeModal() { $('#modalBackdrop').classList.remove('show'); document.body.classList.remove('locked'); }
