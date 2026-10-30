@@ -4,14 +4,18 @@ Premium presentation-led prototype for a Nashik–Trimbakeshwar accommodation ma
 
 ## Run locally
 
-Open `dist/index.html` directly in a browser, or serve the folder with any static file server:
+Install dependencies, build the React app, and start the Express server:
 
 ```powershell
 cd 'D:\webakoof\booking marketplace'
-python -m http.server 4173 --directory dist
+npm install
+npm run build
+npm start
 ```
 
 Then visit `http://localhost:4173`.
+
+Use `npm run dev` for Vite hot reload during frontend development. The Node server serves the production build and falls back to `index.html` for React routes.
 
 ## Prototype scope
 
