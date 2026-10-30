@@ -436,7 +436,7 @@ footer::after {
   .footer-links { grid-template-columns:repeat(2,1fr); gap:14px 20px; }
 }
 
-/* Layered hero motion inspired by the reference experience. */
+/* Animated Mahakumbh hero scene. */
 .ota-hero {
   position:relative;
   isolation:isolate;
@@ -463,23 +463,11 @@ footer::after {
   animation:scene-reveal 5.4s cubic-bezier(.65,0,.82,.25) both;
 }
 .ota-hero > .shell { position:relative; z-index:2; }
-.ota-hero > .shell::before {
-  position:absolute;
-  z-index:1;
-  right:0;
-  bottom:2%;
-  left:0;
-  height:42%;
-  background:url('/assets/mahakumbh-train-layer.png') center/contain no-repeat;
-  content:'';
-  pointer-events:none;
-  animation:train-crossing 5.4s cubic-bezier(.65,0,.82,.25) both;
-}
 .ota-hero > .shell > * { position:relative; z-index:2; }
 .ota-heading { animation:hero-copy-reveal .9s cubic-bezier(.2,.75,.25,1) both; }
-.ota-heading .eyebrow { animation:hero-eyebrow-reveal .8s 2.8s both; }
-.ota-heading { animation-delay:2.7s; }
-.ota-search-card { animation-delay:3.05s; }
+.ota-heading .eyebrow { animation-delay:.2s; }
+.ota-heading { animation-delay:.15s; }
+.ota-search-card { animation-delay:.4s; }
 .ota-search-card::after {
   position:absolute;
   top:0;
@@ -497,14 +485,8 @@ footer::after {
   from { transform:scale(1.04) translate3d(-.5%,0,0); }
   to { transform:scale(1.12) translate3d(1.5%,-1%,0); }
 }
-@keyframes train-crossing {
-  0% { opacity:0; transform:translateX(-125%); }
-  8% { opacity:1; }
-  58% { opacity:1; transform:translateX(12%); }
-  100% { opacity:0; transform:translateX(142%); }
-}
 @keyframes scene-reveal {
-  0%,58% { opacity:.88; }
+  0% { opacity:.62; }
   100% { opacity:.34; }
 }
 @keyframes hero-copy-reveal {
@@ -530,6 +512,5 @@ footer::after {
   .ota-heading .eyebrow,
   .ota-search-card,
   .ota-search-card::after,
-  .ota-hero::after,
-  .ota-hero > .shell::before { animation:none; }
+  .ota-hero::after { animation:none; }
 }
