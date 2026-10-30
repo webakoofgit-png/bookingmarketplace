@@ -435,3 +435,74 @@ footer::after {
   .footer-row { grid-template-columns:1fr; gap:30px; padding-bottom:32px; }
   .footer-links { grid-template-columns:repeat(2,1fr); gap:14px 20px; }
 }
+
+/* Layered hero motion inspired by the reference experience. */
+.ota-hero {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:#0c203e;
+}
+.ota-hero::before,
+.ota-hero::after {
+  position:absolute;
+  inset:0;
+  content:'';
+}
+.ota-hero::before {
+  z-index:0;
+  inset:-7%;
+  background:url('/assets/mahakumbh-hero.png') center/cover;
+  animation:hero-scene-drift 22s ease-in-out infinite alternate;
+  transform-origin:center;
+}
+.ota-hero::after {
+  z-index:0;
+  background:linear-gradient(90deg,#081a39e8 0%,#12345ab8 48%,#12345a52 100%),linear-gradient(0deg,#081a3950,transparent 42%);
+  pointer-events:none;
+}
+.ota-hero > .shell { position:relative; z-index:1; }
+.ota-heading { animation:hero-copy-reveal .9s cubic-bezier(.2,.75,.25,1) both; }
+.ota-heading .eyebrow { animation:hero-eyebrow-reveal .8s .08s both; }
+.ota-search-card { animation:hero-search-reveal 1s .22s cubic-bezier(.2,.75,.25,1) both; transform-origin:center bottom; }
+.ota-search-card::after {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:-35%;
+  width:22%;
+  background:linear-gradient(90deg,transparent,#ffffff55,transparent);
+  content:'';
+  pointer-events:none;
+  transform:skewX(-18deg);
+  animation:search-card-shimmer 7s 1.5s ease-in-out infinite;
+}
+.ota-search-card { position:relative; overflow:hidden; }
+@keyframes hero-scene-drift {
+  from { transform:scale(1.04) translate3d(-.5%,0,0); }
+  to { transform:scale(1.12) translate3d(1.5%,-1%,0); }
+}
+@keyframes hero-copy-reveal {
+  from { opacity:0; transform:translateY(28px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes hero-eyebrow-reveal {
+  from { opacity:0; letter-spacing:.35em; transform:translateY(8px); }
+  to { opacity:1; letter-spacing:.18em; transform:translateY(0); }
+}
+@keyframes hero-search-reveal {
+  from { opacity:0; transform:translateY(45px) scale(.97); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes search-card-shimmer {
+  0%,65%,100% { left:-35%; opacity:0; }
+  72% { opacity:1; }
+  88% { left:120%; opacity:0; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ota-hero::before,
+  .ota-heading,
+  .ota-heading .eyebrow,
+  .ota-search-card,
+  .ota-search-card::after { animation:none; }
+}
