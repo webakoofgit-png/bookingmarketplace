@@ -452,7 +452,7 @@ footer::after {
 .ota-hero::before {
   z-index:0;
   inset:-7%;
-  background:url('/assets/mahakumbh-hero.png') center/cover;
+  background:url('/assets/mahakumbh-reveal-background.png') center/cover;
   animation:hero-scene-drift 22s ease-in-out infinite alternate;
   transform-origin:center;
 }
@@ -460,11 +460,26 @@ footer::after {
   z-index:0;
   background:linear-gradient(90deg,#081a39e8 0%,#12345ab8 48%,#12345a52 100%),linear-gradient(0deg,#081a3950,transparent 42%);
   pointer-events:none;
+  animation:scene-reveal 5.4s cubic-bezier(.65,0,.82,.25) both;
 }
-.ota-hero > .shell { position:relative; z-index:1; }
+.ota-hero > .shell { position:relative; z-index:2; }
+.ota-hero > .shell::before {
+  position:absolute;
+  z-index:1;
+  right:0;
+  bottom:2%;
+  left:0;
+  height:42%;
+  background:url('/assets/mahakumbh-train-layer.png') center/contain no-repeat;
+  content:'';
+  pointer-events:none;
+  animation:train-crossing 5.4s cubic-bezier(.65,0,.82,.25) both;
+}
+.ota-hero > .shell > * { position:relative; z-index:2; }
 .ota-heading { animation:hero-copy-reveal .9s cubic-bezier(.2,.75,.25,1) both; }
-.ota-heading .eyebrow { animation:hero-eyebrow-reveal .8s .08s both; }
-.ota-search-card { animation:hero-search-reveal 1s .22s cubic-bezier(.2,.75,.25,1) both; transform-origin:center bottom; }
+.ota-heading .eyebrow { animation:hero-eyebrow-reveal .8s 2.8s both; }
+.ota-heading { animation-delay:2.7s; }
+.ota-search-card { animation-delay:3.05s; }
 .ota-search-card::after {
   position:absolute;
   top:0;
@@ -481,6 +496,16 @@ footer::after {
 @keyframes hero-scene-drift {
   from { transform:scale(1.04) translate3d(-.5%,0,0); }
   to { transform:scale(1.12) translate3d(1.5%,-1%,0); }
+}
+@keyframes train-crossing {
+  0% { opacity:0; transform:translateX(-125%); }
+  8% { opacity:1; }
+  58% { opacity:1; transform:translateX(12%); }
+  100% { opacity:0; transform:translateX(142%); }
+}
+@keyframes scene-reveal {
+  0%,58% { opacity:.88; }
+  100% { opacity:.34; }
 }
 @keyframes hero-copy-reveal {
   from { opacity:0; transform:translateY(28px); }
@@ -504,5 +529,7 @@ footer::after {
   .ota-heading,
   .ota-heading .eyebrow,
   .ota-search-card,
-  .ota-search-card::after { animation:none; }
+  .ota-search-card::after,
+  .ota-hero::after,
+  .ota-hero > .shell::before { animation:none; }
 }
